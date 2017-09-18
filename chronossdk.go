@@ -12,12 +12,12 @@ import (
 )
 
 type Config struct {
-  appkey            string    `json:"appkey"`
-  appsecret         string    `json:"appsecret"`
-  authManagerURL    string    `json:"authManagerURL"`
-  chronosURL        string    `json:"chronosURL"`
-  instanceID        string    `json:"instanceID"`
-  status            string    `json:status"`
+  Appkey            string    `json:"appkey"`
+  Appsecret         string    `json:"appsecret"`
+  AuthManagerURL    string    `json:"authManagerURL"`
+  ChronosURL        string    `json:"chronosURL"`
+  InstanceID        string    `json:"instanceID"`
+  Status            string    `json:status"`
 }
 
 
