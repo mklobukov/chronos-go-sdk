@@ -23,7 +23,7 @@ type Config struct {
 
 func GetAuthString(config *Config) (string) {
   //var plainAuth = config.appkey + ":" + config.appsecret
-  var plainAuth = config.appkey + ":" + config.appsecret
+  var plainAuth = config.Appkey + ":" + config.Appsecret
   authString := base64.URLEncoding.EncodeToString([]byte(plainAuth))
   return authString
 }
@@ -39,7 +39,7 @@ func GetToken(config *Config) (string, error) {
 
   base64Auth := GetAuthString(config)
   req, err := http.NewRequest(http.MethodPost,
-                              config.authManagerURL + "/v1/login/",
+                              config.AuthManagerURL + "/v1/login/",
                               bytes.NewBuffer(payload))
   if err != nil {
     fmt.Println("Failed to create request: ", err.Error())
@@ -83,8 +83,8 @@ func UpdateJobStatus(config *Config) (string, error) {
   //chronos currently doesn't return anything when status is updated
   //the string return value can be used later if chronos responds with any data
   payload := []byte(`{
-      "instance_id": "` + config.instanceID + `",
-      "status": "` + config.status + `"
+      "instance_id": "` + config.InstanceID + `",
+      "status": "` + config.Status + `"
   }`)
 
   client := http.Client{
@@ -98,7 +98,7 @@ func UpdateJobStatus(config *Config) (string, error) {
   }
 
   req, err := http.NewRequest(http.MethodPost,
-                              config.chronosURL + "/v1/jobcustomstatus",
+                              config.ChronosURL + "/v1/jobcustomstatus",
                               bytes.NewBuffer(payload))
   if err != nil {
     fmt.Println("Failed to create request: ", err.Error())
@@ -146,7 +146,7 @@ func GetJobArgs(config *Config) (string, error) {
     return "", err
   }
 
-  getArgsURL := config.chronosURL + "/v1/getargs/instanceid/" + config.instanceID
+  getArgsURL := config.ChronosURL + "/v1/getargs/instanceid/" + config.InstanceID
   req, err := http.NewRequest(http.MethodGet, getArgsURL, nil)
   if err != nil {
     fmt.Println("Failed to create request: ", err.Error())
