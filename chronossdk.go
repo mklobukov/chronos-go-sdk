@@ -1,4 +1,4 @@
-package chronos-go-sdk
+package chronossdk
 
 import (
   "fmt"
