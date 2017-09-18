@@ -20,14 +20,6 @@ type Config struct {
   status            string    `json:status"`
 }
 
-// file, _ := os.Open("conf.json")
-// decoder := json.NewDecoder(file)
-// config := Config{}
-// err := decoder.Decode(&config)
-// if err != nil {
-//   fmt.Println("Error reading config: ", err)
-//   return
-// }
 
 func getAuthString(config *Config) (string) {
   //var plainAuth = config.appkey + ":" + config.appsecret
@@ -195,7 +187,13 @@ func getJobArgs(config *Config) (string, error) {
 }
 
 func main() {
-  config := Config{} //fill this in for testing 
+  config := Config{"Hoy47BalhuPb8L+TyiDxnMsF2jnYhzr",
+                  "+khl0zmoVNRgKs92uDCNgDEo+9/GQ1qcbWFya3Rlc3QwNDBlYzc4MTVlMmE0YWEyODBlYWRmMDk2OWM4MjFmNA==",
+                  "http://localhost:4655",
+                  "http://localhost:8080",
+                  "b65cc9dfd8ec003e2e1517fe30802b3a3ade8304d634c767391d92e3f7c6f277",
+                  "Custom Status Description",
+                  }
 
   au := getAuthString(&config)
   fmt.Println("authtest: ", au)
