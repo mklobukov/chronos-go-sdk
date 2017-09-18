@@ -79,12 +79,12 @@ func GetToken(config *Config) (string, error) {
   return token, nil
 }
 
-func UpdateJobStatus(config *Config) (string, error) {
+func UpdateJobStatus(config *Config, status string) (string, error) {
   //chronos currently doesn't return anything when status is updated
   //the string return value can be used later if chronos responds with any data
   payload := []byte(`{
       "instance_id": "` + config.InstanceID + `",
-      "status": "` + config.Status + `"
+      "status": "` + status + `"
   }`)
 
   client := http.Client{
