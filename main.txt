@@ -1,0 +1,37 @@
+package main
+
+import (
+  "fmt"
+  "bytes"
+  "encoding/json"
+  "encoding/base64"
+  "net/http"
+  "errors"
+  "io/ioutil"
+  "time"
+  "chronossdk"
+)
+
+type Config struct {
+  appkey            string    `json:"appkey"`
+  appsecret         string    `json:"appsecret"`
+  authManagerURL    string    `json:"authManagerURL"`
+  chronosURL        string    `json:"chronosURL"`
+  instanceID        string    `json:"instanceID"`
+  status            string    `json:status"`
+}
+
+
+func main() {
+  config := Config{
+                  }
+
+  au := getAuthString(&config)
+  fmt.Println("authtest: ", au)
+  tok, _ := getToken(&config)
+  fmt.Println("gettoken test: ", tok)
+  updateJobStatus(&config)
+  args, _ := getJobArgs(&config)
+  fmt.Println(args)
+  //fmt.Println("updatestatus: ", updateJobStatus(&config))
+}
