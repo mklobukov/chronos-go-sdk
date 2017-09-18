@@ -1,4 +1,4 @@
-package chronossdk
+package chronos-go-sdk
 
 import (
   "fmt"
@@ -21,14 +21,14 @@ type Config struct {
 }
 
 
-func getAuthString(config *Config) (string) {
+func GetAuthString(config *Config) (string) {
   //var plainAuth = config.appkey + ":" + config.appsecret
   var plainAuth = config.appkey + ":" + config.appsecret
   authString := base64.URLEncoding.EncodeToString([]byte(plainAuth))
   return authString
 }
 
-func getToken(config *Config) (string, error) {
+func GetToken(config *Config) (string, error) {
   payload := []byte(`{
       "Type": "Server"
   }`)
@@ -37,7 +37,7 @@ func getToken(config *Config) (string, error) {
     Timeout: time.Second * 2,
   }
 
-  base64Auth := getAuthString(config)
+  base64Auth := GetAuthString(config)
   req, err := http.NewRequest(http.MethodPost,
                               config.authManagerURL + "/v1/login/",
                               bytes.NewBuffer(payload))
@@ -79,7 +79,7 @@ func getToken(config *Config) (string, error) {
   return token, nil
 }
 
-func updateJobStatus(config *Config) (string, error) {
+func UpdateJobStatus(config *Config) (string, error) {
   //chronos currently doesn't return anything when status is updated
   //the string return value can be used later if chronos responds with any data
   payload := []byte(`{
@@ -91,7 +91,7 @@ func updateJobStatus(config *Config) (string, error) {
     Timeout: time.Second * 2,
   }
 
-  token, err := getToken(config)
+  token, err := GetToken(config)
   if err != nil {
     fmt.Println("Failed to get token: ", err.Error())
     return "", err
@@ -135,12 +135,12 @@ func updateJobStatus(config *Config) (string, error) {
   return "", nil
 }
 
-func getJobArgs(config *Config) (string, error) {
+func GetJobArgs(config *Config) (string, error) {
   client := http.Client{
     Timeout: time.Second * 2,
   }
 
-  token, err := getToken(config)
+  token, err := GetToken(config)
   if err != nil {
     fmt.Println("Failed to get token: ", err.Error())
     return "", err
